@@ -6,6 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
 import config from './config';
+import { initSentry } from './libs/errorLib';
+
+//initializes the app with Sentry for error reporting
+initSentry();
 
 // Initialize AWS Amplify
 // Auth refers to Cognito
