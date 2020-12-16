@@ -1,13 +1,24 @@
 import * as Sentry from "@sentry/browser";
+import { Integrations } from "@sentry/tracing";
 
-const isLocal = process.env.NODE_ENV === "development";
+const isLocal = false;
 
 export function initSentry() {
     if (isLocal) {
         return;
     }
 
-    Sentry.init({ dsn: "https://66123c8499a34d74857d2cba871b3609@o492161.ingest.sentry.io/5558914" });
+    Sentry.init({
+        dsn: "https://66123c8499a34d74857d2cba871b3609@o492161.ingest.sentry.io/5558914",
+        autoSessionTracking: true,
+        integrations: [
+            new Integrations.BrowserTracing(),
+        ],
+
+        // We recommend adjusting this value in production, or using tracesSampler
+        // for finer control
+        tracesSampleRate: 1.0,
+    });
 }
 
 export function logError(error, errorInfo = null) {
